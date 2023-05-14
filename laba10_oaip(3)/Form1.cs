@@ -64,15 +64,33 @@ namespace laba10_oaip_3_
         {
             if (radioButtonFastSort.Checked)
             {
-
+                GenerateMassiv generateMassiv = new();
+                SortClass sort = new(new FastSort());
+                string path = "";
+                if (checkBox1.Checked)
+                {
+                    FolderBrowserDialog folderBrowserDialog = new();
+                    folderBrowserDialog.ShowDialog();
+                    path = folderBrowserDialog.SelectedPath;
+                }
+                List<int> ints = sort.Sort(generateMassiv.GetList(), checkBox1.Checked, path);
+                sort.FillForm(labelChanges, labelRepits, labelTime);
+                new EnterListBox().EnterToListBox(ints);
             }
             else
             {
                 GenerateMassiv generateMassiv = new();
                 SortClass sort = new(new SimpleSort());
+                string path = "";
+                if(checkBox1.Checked)
+                {
+                    FolderBrowserDialog folderBrowserDialog = new();
+                    folderBrowserDialog.ShowDialog();
+                    path = folderBrowserDialog.SelectedPath;
+                }
                 Thread thread = new(() =>
                 {
-                    List<int> ints = sort.Sort(generateMassiv.GetList());
+                    List<int> ints = sort.Sort(generateMassiv.GetList(),checkBox1.Checked,path);
                     sort.FillForm(labelChanges, labelRepits, labelTime);
                     new EnterListBox().EnterToListBox(ints);
                 });

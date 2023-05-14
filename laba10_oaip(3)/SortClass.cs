@@ -14,9 +14,16 @@ namespace laba10_oaip_3_
         {
             SortMethod = sortMethod;
         }
-        public List<int> Sort(List<int> ints)
+        public List<int> Sort(List<int> ints, bool write, string path)
         {
-            return SortMethod.Sort(ints);
+            if (write) 
+            {
+                return SortMethod.SortWrite(ints,path); 
+            }
+            else
+            {
+                return SortMethod.Sort(ints);
+            }
         }
         public void FillForm(Label changes, Label repits, Label times)
         {

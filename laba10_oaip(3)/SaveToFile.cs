@@ -16,6 +16,10 @@ namespace laba10_oaip_3_
         {
             Path = path;
         }
+        public SaveToFile(string path, string name)
+        {
+            Path = path +"/" + name + ".txt";
+        }
         public async void Save(string Name, string answer)
         {
             Path += "/" + Name + ".txt";
@@ -35,7 +39,6 @@ namespace laba10_oaip_3_
                 {
                     await writer.WriteAsync(i + " ");
                 }
-                MessageBox.Show("Запись выполнена");
             }
             repit = true;
         }
@@ -49,7 +52,38 @@ namespace laba10_oaip_3_
                 {
                     await writer.WriteAsync(i+" ");
                 }
-                MessageBox.Show("Запись выполнена");
+            }
+            repit = true;
+        }
+        public async void Save(string answer)
+        {
+            using (StreamWriter writer = new StreamWriter(Path, repit))
+            {
+                await writer.WriteLineAsync(answer);
+            }
+            repit = true;
+        }
+        public async void Save(List<int> ints)
+        {
+            using (StreamWriter writer = new StreamWriter(Path, repit))
+            {
+                await writer.WriteAsync("\n");
+                foreach (int i in ints)
+                {
+                    await writer.WriteAsync(i + " ");
+                }
+            }
+            repit = true;
+        }
+        public async void Save(List<int> ints, string answer)
+        {
+            using (StreamWriter writer = new StreamWriter(Path, repit))
+            {
+                await writer.WriteLineAsync(answer);
+                foreach (int i in ints)
+                {
+                    await writer.WriteAsync(i + " ");
+                }
             }
             repit = true;
         }
