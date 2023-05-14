@@ -10,37 +10,65 @@ namespace laba10_oaip_3_
         public Form1()
         {
             InitializeComponent();
+            EnterListBox.textBox = listBox1;
         }
 
-       
         private void buttonFile_Click(object sender, EventArgs e)
         {
-            /*if (saveFileDialog1.ShowDialog() == DialogResult.Cancel) { return; }                 
-            Path = saveFileDialog1.FileName;
-            System.IO.File.WriteAllText(Path, allstrings);*/
-
-        }
-        private void buttonOpenFile_Click(object sender, EventArgs e)
-        {
-            /*
-            mas = new List<int>();
-            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+            GenerateMassiv generate = new();
+            if (generate.GetList().Count == 0)
+            {
+                MessageBox.Show("Нельзя сохранить пустой массив");
                 return;
-            Path = openFileDialog1.FileName;
-            string text;
-            
-            using (StreamReader reader = new StreamReader(Path))
-            {
-                text = reader.ReadToEnd();
             }
-            allstrings += text;
-            MessageBox.Show(text);
-            listBox1.Items.Add(text);
-            foreach(string i in text.Split(' '))
-            {
-                mas.Add(Convert.ToInt32(i));
-            }*/
+            FolderBrowserDialog folder = new();
+            folder.ShowDialog();
+            SaveToFile saveToFile = new(folder.SelectedPath);
+            saveToFile.Save("Массив чисел", generate.GetList());
         }
+
+        private async void buttonOpenFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new();
+            openFileDialog.ShowDialog();
+            using (StreamReader reader = new(openFileDialog.FileName))
+            {
+                EnterListBox enterListBox = new();
+                List<int> ints = new();
+                foreach (string i in (await reader.ReadToEndAsync()).Split(' '))
+                {
+                    int result;
+                    if (int.TryParse(i,out result))
+                    {
+                        ints.Add(result);
+                    }
+                }
+                GenerateMassiv generateMassiv = new();
+                generateMassiv.SetList(ints);
+                Thread thread = new (() =>
+                {
+                    string str = "";
+                    EnterListBox.Clear();
+                    for (int i = 0; i < ints.Count; i++)
+                    {
+                        str += ints[i] + " ";
+                        if ((i + 1) % 24 == 0)
+                        {
+                            enterListBox.EnterToListBox(str);
+                            str = "";
+                        }
+                        if (i + 1 == ints.Count)
+                        {
+                            enterListBox.EnterToListBox(str);
+                            str = "";
+                        }
+                    }
+                });
+                thread.Start();
+                
+            }
+        }
+
         private void buttonCreateMas_Click(object sender, EventArgs e)
         {
             int lenght = trackBar1.Value;
@@ -93,6 +121,7 @@ namespace laba10_oaip_3_
             }*/
 
         }
+
         private void buttonForAnalyis_Click(object sender, EventArgs e)
         {
             /*
@@ -180,6 +209,7 @@ namespace laba10_oaip_3_
             dataGridView1.Rows.Add(st4);
             */
         }
+
         private void textBoxCountOfElements_TextChanged(object sender, EventArgs e)
         {
             int track;

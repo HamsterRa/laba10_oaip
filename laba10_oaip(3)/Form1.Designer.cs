@@ -45,8 +45,6 @@
             buttonFile = new Button();
             buttonForAnalyis = new Button();
             dataGridView1 = new DataGridView();
-            openFileDialog1 = new OpenFileDialog();
-            saveFileDialog1 = new SaveFileDialog();
             buttonOpenFile = new Button();
             button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
@@ -217,10 +215,6 @@
             dataGridView1.Size = new Size(494, 141);
             dataGridView1.TabIndex = 19;
             // 
-            // openFileDialog1
-            // 
-            openFileDialog1.FileName = "openFileDialog1";
-            // 
             // buttonOpenFile
             // 
             buttonOpenFile.Location = new Point(776, 9);
@@ -294,8 +288,6 @@
         private Button buttonFile;
         private Button buttonForAnalyis;
         private DataGridView dataGridView1;
-        private OpenFileDialog openFileDialog1;
-        private SaveFileDialog saveFileDialog1;
         private Button buttonOpenFile;
         private Button button1;
     }
