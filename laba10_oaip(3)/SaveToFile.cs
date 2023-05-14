@@ -26,6 +26,7 @@ namespace laba10_oaip_3_
             using (StreamWriter writer = new StreamWriter(Path, repit))
             {
                 await writer.WriteLineAsync(answer);
+                writer.Close();
             }
             repit = true;
         }
@@ -39,6 +40,7 @@ namespace laba10_oaip_3_
                 {
                     await writer.WriteAsync(i + " ");
                 }
+                writer.Close();
             }
             repit = true;
         }
@@ -52,6 +54,7 @@ namespace laba10_oaip_3_
                 {
                     await writer.WriteAsync(i+" ");
                 }
+                writer.Close();
             }
             repit = true;
         }
@@ -60,6 +63,7 @@ namespace laba10_oaip_3_
             using (StreamWriter writer = new StreamWriter(Path, repit))
             {
                 await writer.WriteLineAsync(answer);
+                writer.Close();
             }
             repit = true;
         }
@@ -68,10 +72,15 @@ namespace laba10_oaip_3_
             using (StreamWriter writer = new StreamWriter(Path, repit))
             {
                 await writer.WriteAsync("\n");
-                foreach (int i in ints)
+                Task task = new(async () =>
                 {
-                    await writer.WriteAsync(i + " ");
-                }
+                    foreach (int i in ints)
+                    {
+                        await writer.WriteAsync(i + " ");
+                    }
+                });
+                task.Start();
+                task.Wait();
             }
             repit = true;
         }
@@ -80,10 +89,10 @@ namespace laba10_oaip_3_
             using (StreamWriter writer = new StreamWriter(Path, repit))
             {
                 await writer.WriteLineAsync(answer);
-                foreach (int i in ints)
-                {
-                    await writer.WriteAsync(i + " ");
-                }
+                    foreach (int i in ints)
+                    {
+                        writer.Write(i + " ");
+                    }
             }
             repit = true;
         }

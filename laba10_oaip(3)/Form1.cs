@@ -73,9 +73,13 @@ namespace laba10_oaip_3_
                     folderBrowserDialog.ShowDialog();
                     path = folderBrowserDialog.SelectedPath;
                 }
-                List<int> ints = sort.Sort(generateMassiv.GetList(), checkBox1.Checked, path);
-                sort.FillForm(labelChanges, labelRepits, labelTime);
-                new EnterListBox().EnterToListBox(ints);
+                Thread thread = new(() =>
+                {
+                    List<int> ints = sort.Sort(generateMassiv.GetList(), checkBox1.Checked, path);
+                    sort.FillForm(labelChanges, labelRepits, labelTime);
+                    new EnterListBox().EnterToListBox(ints);
+                });
+                thread.Start();
             }
             else
             {
