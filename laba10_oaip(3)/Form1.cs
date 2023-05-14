@@ -38,34 +38,16 @@ namespace laba10_oaip_3_
                 foreach (string i in (await reader.ReadToEndAsync()).Split(' '))
                 {
                     int result;
-                    if (int.TryParse(i,out result))
+                    if (int.TryParse(i, out result))
                     {
                         ints.Add(result);
                     }
                 }
                 GenerateMassiv generateMassiv = new();
                 generateMassiv.SetList(ints);
-                Thread thread = new (() =>
-                {
-                    string str = "";
-                    EnterListBox.Clear();
-                    for (int i = 0; i < ints.Count; i++)
-                    {
-                        str += ints[i] + " ";
-                        if ((i + 1) % 24 == 0)
-                        {
-                            enterListBox.EnterToListBox(str);
-                            str = "";
-                        }
-                        if (i + 1 == ints.Count)
-                        {
-                            enterListBox.EnterToListBox(str);
-                            str = "";
-                        }
-                    }
-                });
-                thread.Start();
-                
+                string str = "";
+                EnterListBox.Clear();
+                new EnterListBox().EnterToListBox(ints);
             }
         }
 
@@ -80,46 +62,22 @@ namespace laba10_oaip_3_
 
         private void buttonSort_Click(object sender, EventArgs e)
         {
-            /*
-            if (radioButtonSimplSort.Checked)
+            if (radioButtonFastSort.Checked)
             {
-                SortClass simpleSort = new(new SimpleSort());
-                mas = simpleSort.Sort(mas);
-                foreach(string element in simpleSort.nado[0].Split('.'))
-                {
-                    listBox1.Items.Add(element);
-                }
-                
-                labelPerestanovka.Text = simpleSort.perestanovka.ToString(); labelSravnenia.Text = simpleSort.sravnenia.ToString();
-                TimeSpan ts = simpleSort.stopwatch.Elapsed;
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
-                labelTime.Text = elapsedTime;
 
-                allstrings += simpleSort.nado[1];                               
             }
             else
             {
-                SortClass fastSort = new(new FastSort());
-                fastSort.stopwatch.Start();
-                mas = fastSort.Sort(mas);
-                fastSort.stopwatch.Stop();
-                foreach (string element in fastSort.nado[0].Split('.'))
+                GenerateMassiv generateMassiv = new();
+                SortClass sort = new(new SimpleSort());
+                Thread thread = new(() =>
                 {
-                    listBox1.Items.Add(element);
-                }
-
-                labelPerestanovka.Text = fastSort.perestanovka.ToString(); labelSravnenia.Text = fastSort.sravnenia.ToString();
-                TimeSpan ts = fastSort.stopwatch.Elapsed;
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
-                labelTime.Text = elapsedTime;
-
-                allstrings += fastSort.nado[1];
-            }*/
-
+                    List<int> ints = sort.Sort(generateMassiv.GetList());
+                    sort.FillForm(labelChanges, labelRepits, labelTime);
+                    new EnterListBox().EnterToListBox(ints);
+                });
+                thread.Start();
+            }
         }
 
         private void buttonForAnalyis_Click(object sender, EventArgs e)

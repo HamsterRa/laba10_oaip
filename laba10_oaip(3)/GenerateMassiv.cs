@@ -32,6 +32,7 @@ namespace laba10_oaip_3_
                     str = "";
                 }
             }
+            MessageBox.Show("Массив создан");
         }
         public List<int> GetList() => lastList ?? new List<int>();
         public void SetList(List<int> newints)
