@@ -224,13 +224,12 @@
             // dataGridView1
             // 
             dataGridView1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(7, 444);
             dataGridView1.Margin = new Padding(3, 2, 3, 2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(494, 141);
+            dataGridView1.Size = new Size(520, 141);
             dataGridView1.TabIndex = 19;
             // 
             // buttonOpenFile
