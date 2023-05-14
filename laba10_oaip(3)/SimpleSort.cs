@@ -9,7 +9,9 @@ namespace laba10_oaip_3_
 {
     internal class SimpleSort : IMethodOfSort
     {
-        public string Sortedmas = "", sortedmasrav; public int srav=0, pere = 0; public Stopwatch stopwatch = new Stopwatch();
+        public string Sortedmas = "", sortedmasrav; 
+        public int srav=0, pere = 0; 
+        public Stopwatch stopwatch = new Stopwatch();
         public List<int> Sort(List<int> mas)
         {
             

@@ -10,42 +10,19 @@ namespace laba10_oaip_3_
         public Form1()
         {
             InitializeComponent();
-        }       
-
-        public List<int> mas;
-        public string allstrings;
-        public string Path;
-
-        class SortClass
-        {
-            public int sravnenia, perestanovka;
-            public Stopwatch stopwatch = new Stopwatch();
-            public string[] nado;
-            public IMethodOfSort SortMethod { private get; set; }
-            public SortClass(IMethodOfSort sortMethod)
-            {
-                SortMethod = sortMethod;
-            }
-            public List<int> Sort(List<int> mas)
-            {
-                mas = SortMethod.Sort(mas);
-                sravnenia = SortMethod.GetSrPere()[0];
-                perestanovka = SortMethod.GetSrPere()[1];
-                stopwatch = SortMethod.GetTime();
-                nado = SortMethod.GetConsole();
-                return mas;
-            }
-
         }
+
+       
         private void buttonFile_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel) { return; }                 
+            /*if (saveFileDialog1.ShowDialog() == DialogResult.Cancel) { return; }                 
             Path = saveFileDialog1.FileName;
-            System.IO.File.WriteAllText(Path, allstrings);
+            System.IO.File.WriteAllText(Path, allstrings);*/
 
         }
         private void buttonOpenFile_Click(object sender, EventArgs e)
         {
+            /*
             mas = new List<int>();
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
@@ -62,29 +39,20 @@ namespace laba10_oaip_3_
             foreach(string i in text.Split(' '))
             {
                 mas.Add(Convert.ToInt32(i));
-            }
+            }*/
         }
         private void buttonCreateMas_Click(object sender, EventArgs e)
         {
-            mas = new List<int>();
-            allstrings = "";
+            int lenght = trackBar1.Value;
             listBox1.Items.Clear();
-            
-            string str = "";
-            int random;
-            Random rnd = new Random();
-            for (int i = 0; i < trackBar1.Value; i++)
-            {
-                random = rnd.Next(-1000, 1000);
-                mas.Add(random);
-                str += random.ToString();
-                str += " ";
-            }
-            listBox1.Items.Add(str);
-            allstrings += str + "\n";
+            GenerateMassiv.lenght = lenght;
+            Thread threadgenerate = new(() => { new GenerateMassiv().Generate(listBox1); });
+            threadgenerate.Start();
         }
+
         private void buttonSort_Click(object sender, EventArgs e)
         {
+            /*
             if (radioButtonSimplSort.Checked)
             {
                 SortClass simpleSort = new(new SimpleSort());
@@ -122,23 +90,12 @@ namespace laba10_oaip_3_
                 labelTime.Text = elapsedTime;
 
                 allstrings += fastSort.nado[1];
-            }
+            }*/
 
-        }
-        public List<int> creation(int count)
-        {
-            List<int> arr = new List<int>();
-            Random rnd = new Random();
-            for (int i = 0; i < count; i++)
-            {
-                int random = rnd.Next(-1000, 1000);
-                arr.Add(random);
-
-            }
-            return arr;
         }
         private void buttonForAnalyis_Click(object sender, EventArgs e)
         {
+            /*
             dataGridView1.ColumnCount = 3;
             string[] st0 = { "Объём выборки", "Метод быстрой сортировки", "Метод выбора" };
             dataGridView1.Rows.Add(st0);
@@ -221,35 +178,19 @@ namespace laba10_oaip_3_
                 ts.Milliseconds / 10);
             string[] st4 = { "200", $"{fastSort.perestanovka.ToString()} {fastSort.sravnenia.ToString()} {elapsedTime}", $"{simpleSort.perestanovka.ToString()} {simpleSort.sravnenia.ToString()} {elapsedTime1}" };
             dataGridView1.Rows.Add(st4);
-            //
-        }
-        // maybe useless
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            */
         }
         private void textBoxCountOfElements_TextChanged(object sender, EventArgs e)
-            {
+        {
             int track;
             if (int.TryParse(textBoxCountOfElements.Text, out track) && track <= 10000)
             {
                 trackBar1.Value = track;
             }
         }
-
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             textBoxCountOfElements.Text = trackBar1.Value.ToString();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
