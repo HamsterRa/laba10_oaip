@@ -11,8 +11,11 @@ namespace laba10_oaip_3_
         {
             InitializeComponent();
             EnterListBox.textBox = listBox1;
+            dataGridView1.ColumnCount = 3;
+            string[] st0 = { "Объём выборки", "Метод быстрой сортировки", "Метод выбора" };
+            dataGridView1.Rows.Add(st0);
         }
-
+        private int count = 0;
         private void buttonFile_Click(object sender, EventArgs e)
         {
             GenerateMassiv generate = new();
@@ -77,7 +80,13 @@ namespace laba10_oaip_3_
                 {
                     List<int> ints = sort.Sort(generateMassiv.GetList(), checkBox1.Checked, path);
                     sort.FillForm(labelChanges, labelRepits, labelTime);
+                    
+                   // sort.Sort(generateMassiv.GetList(), false, "");
+                    string[] st = { $"{generateMassiv.GetList().Count}", "", "" };
+                    st[1] = sort.ResultString();
+
                     new EnterListBox().EnterToListBox(ints);
+                    dataGridView1.Invoke((Action)(() => { dataGridView1.Rows.Add(st); }));
                 });
                 thread.Start();
             }
@@ -96,7 +105,12 @@ namespace laba10_oaip_3_
                 {
                     List<int> ints = sort.Sort(generateMassiv.GetList(), checkBox1.Checked, path);
                     sort.FillForm(labelChanges, labelRepits, labelTime);
+                    string[] st = { $"{generateMassiv.GetList().Count}", "", "" };
+                    st[2] = sort.ResultString();
                     new EnterListBox().EnterToListBox(ints);
+
+
+                    dataGridView1.Invoke((Action)(() => { dataGridView1.Rows.Add(st); }));
                 });
                 thread.Start();
             }
@@ -104,9 +118,7 @@ namespace laba10_oaip_3_
 
         private void buttonForAnalyis_Click(object sender, EventArgs e)
         {
-            dataGridView1.ColumnCount = 3;
-            string[] st0 = { "Объём выборки", "Метод быстрой сортировки", "Метод выбора" };
-            dataGridView1.Rows.Add(st0);
+
             for (int i = 1; i < 5; i++)
             {
                 string[] st = { $"{Math.Pow(10, i)}", "", "" };

@@ -33,7 +33,7 @@ namespace laba10_oaip_3_
         }
         public string ResultString()
         {
-            return $"П: {SortMethod.Changes().ToString()} С: {SortMethod.Repits().ToString()} t: {SortMethod.Time().ToString()}";
+            return $"П: {SortMethod.Changes()} С: {SortMethod.Repits()} t: {SortMethod.Time()}";
         }
 
     }
